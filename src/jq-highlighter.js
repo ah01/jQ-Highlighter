@@ -13,9 +13,14 @@ jQuery.fn.highlight = (function(){
     {name: "comment",   reg: /\/\/.*$/gm}
   ];
   
+  // highlight multiline text (each line individually)
   function highlightText(text, className)
   {
-    return "<span class='" + className + "'>" + text + "</span>";
+    var left  = "<span class='" + className + "'>",
+        right = "</span>",
+        lines = text.split("\n");
+    
+    return left + lines.join(right + "\n" + left) + right;
   }
   
   function highlightWords(text, list, className)

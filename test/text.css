@@ -1,0 +1,14 @@
+body{
+	color:#222;
+	font-family:Corbel,Verdana,'Geneva CE',lucida,sans-serif;
+	font-size:90%;
+	line-height:165%;
+	margin:20px;
+	text-align: center;
+}
+
+#frame{
+	margin: 10px auto;
+	max-width: 1000px;
+	text-align: left
+}

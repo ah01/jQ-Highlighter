@@ -1,0 +1,27 @@
+pre{
+	font-family: "Bitstream Vera Sans Mono","Monaco","Courier New",monospace;
+	padding: 1.5em;
+	background-color: #0C1021;
+	color: #F8F8F8;
+	line-height: 1.3em;
+	font-size: 8.4pt;
+}
+
+pre span.keyword{
+	color: #FBDE2D;
+}
+pre span.operator{
+	color: #FBDE2D;
+}
+pre span.special{
+	color: #FF6400;
+}
+pre span.comment{
+	color:#009933;
+}	
+pre span.mcomment{
+	color:#AEAEAE;
+}	
+pre span.string{
+	color: #8DA6CE;
+}

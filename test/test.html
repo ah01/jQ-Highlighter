@@ -3,7 +3,7 @@
 
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
   
-  <title>JS Frameorky a DOM</title>
+  <title>Test page of jQ Highlighter</title>
   
   <link rel="stylesheet" href="text.css" type="text/css">
   
@@ -14,7 +14,9 @@
   
   <script type="text/javascript">
     $(function(){
-      $("pre").highlight();
+      $("pre").each(function(){
+        $(this).highlight();
+      });
     });
   </script>
   
@@ -24,11 +26,50 @@
   
     <h1>Test page of jQ Highlighter</h1>
   
+    <h2>jQuery plugin</h2>
+    
 <pre>
 $(function(){
-  $("pre").highlight();
+  $("pre").each(function(){
+    $(this).highlight();
+  });
 });
 </pre>  
+
+    <h2>Some longer code</h2>
+    
+<pre>
+/**
+ * Rozšíření DOM
+ */ 
+JSLab.dom.extend = (function(){
+
+	var test = function(){};
+	var E = window.HTMLElement || window.Element; // v IE není HTMLElement ale jen Element
+
+	E.prototype.__proto_test__ = test; // rozšíření o testovací fci.
+	var div = document.createElement(&quot;div&quot;);
+
+	if(div.__proto_test__ === test){
+		// rozšíření nativního objektu funguje
+		JSLab.extend(E.prototype, JSLab.dom.methods);
+		// dom.extend tedy nemusí dělat nic
+		return function(element){
+			return element;
+		};
+	}else{
+		// je třeba rozšiřovat každý element samostatně
+		return function (element){
+			return JSLab.extend(element, JSLab.dom.methods);
+		};
+	}
+
+	// úklid
+	delete E.prototype.__proto_test__;
+	delete div;
+
+})();
+</pre>
   
   </div>
 

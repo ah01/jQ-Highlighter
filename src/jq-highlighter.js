@@ -12,22 +12,33 @@ jQuery.fn.highlight = (function(){
     {name: "mcomment",  reg: /\/\*[\s\S]*?\*\//gm},
     {name: "comment",   reg: /\/\/.*$/gm}
   ];
-
+  
+  function highlightText(text, className)
+  {
+    return "<span class='" + className + "'>" + text + "</span>";
+  }
+  
+  function highlightWords(text, list, className)
+  {
+    var reg = new RegExp("\\b" + list.replace(/\s+/g, '\\b|\\b') + "\\b", "gm");
+    return text.replace(reg, "<span class='" + className + "'>$&</span>");
+  }
+  
   // highlight fn.
   return function()
   {
     var html = $(this).html();
 
     $.each(codes, function(){
-      html = html.replace(this.reg, "<span class='" + this.name + "'>$&</span>");
+      var className = this.name;
+      html = html.replace(this.reg, function(text){
+        return highlightText(text, className);
+      });
     });
-
-    var keyReg = new RegExp("\\b" + keywords.replace(/\s+/g, '\\b|\\b') + "\\b", "gm");
-    html = html.replace(keyReg, "<span class='keyword'>$&</span>");
-
-    var specReg = new RegExp("\\b" + specials.replace(/\s+/g, '\\b|\\b') + "\\b", "gm");
-    html = html.replace(specReg, "<span class='special'>$&</span>");
-  
+    
+    html = highlightWords(html, keywords, "keyword");
+    html = highlightWords(html, specials, "special");
+    
     $(this).html(html);
   };
   

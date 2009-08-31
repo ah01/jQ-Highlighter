@@ -61,23 +61,28 @@ jQuery.fn.highlight = (function(){
   }
   
   // highlight fn.
-  return function()
+  function highlight(text)
   {
-    var html = $(this).html();
-
     $.each(codes, function(){
       var className = this.name;
-      html = html.replace(this.reg, function(text){
-        return highlightText(text, className);
+      text = text.replace(this.reg, function(token){
+        return highlightText(token, className);
       });
     });
     
-    html = highlightWords(html, keywords, "keyword");
-    html = highlightWords(html, specials, "special");
+    text = highlightWords(text, keywords, "keyword");
+    text = highlightWords(text, specials, "special");
     
-    html = highlightLines(html);
-    
-    $(this).html(html);
+    text = highlightLines(text);
+    return text;
+  };
+  
+  return function(){
+    this.each(function(){
+      var e = $(this); 
+      e.html(highlight(e.html()));
+    });
+    return this;
   };
   
 })();

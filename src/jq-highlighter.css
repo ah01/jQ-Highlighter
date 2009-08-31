@@ -3,7 +3,7 @@ pre{
 	padding: 1.5em;
 	background-color: #0C1021;
 	color: #F8F8F8;
-	line-height: 1.3em;
+	line-height: 15px;
 	font-size: 8.4pt;
 }
 
@@ -12,6 +12,9 @@ pre div.line{
   padding-left: 40px;
   margin-bottom: 1px; 
   white-space: normal;
+  background-position: 13px 15px;
+  background-repeat: no-repeat;
+  background-image: url(line-wrap.gif);
 }
 
 pre div.line var{

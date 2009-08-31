@@ -1,3 +1,5 @@
+/* --- code block --- */
+
 pre{
 	font-family: "Bitstream Vera Sans Mono","Monaco","Courier New",monospace;
 	padding: 1.5em;
@@ -6,6 +8,8 @@ pre{
 	line-height: 15px;
 	font-size: 8.4pt;
 }
+
+/* --- code line --- */
 
 pre div.line{
   position: relative;
@@ -31,6 +35,8 @@ pre div.line.even{
 }
 pre div.line.odd{
 }
+
+/* --- individual tokens --- */
 
 pre span.keyword{
 	color: #FBDE2D;

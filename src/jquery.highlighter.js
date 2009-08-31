@@ -1,9 +1,11 @@
 /**
- * jQ Highlighter – simple syntax highlighter for jQuery  
+ * jQ Highlighter – simple javascript syntax highlighter for jQuery    
  */ 
 
 jQuery.fn.highlight = (function(){
-
+  
+  // --- JS description --------------------------------------------------------
+  
   var keywords =	'break case catch continue default delete do else false for function if in instanceof new null return super switch throw true try typeof var while with';
   var specials = 'this document window prototype Array String Object Function Number';
   var codes = [
@@ -13,9 +15,12 @@ jQuery.fn.highlight = (function(){
     {name: "comment",   reg: /\/\/.*$/gm}
   ];
   
+  // --- Core Functions --------------------------------------------------------
+  
+  // Replace tabulators and spaces by nbsp entites
   function normalizeText(text)
   {
-    // tabs
+    // tabulators
     text = text.replace(/\t/g, "    ");
     
     // fix spaces
@@ -40,13 +45,15 @@ jQuery.fn.highlight = (function(){
     return left + lines.join(right + "\n" + left) + right;
   }
   
+  // highlight keywords given by space separeted list
   function highlightWords(text, list, className)
   {
     var reg = new RegExp("\\b" + list.replace(/\s+/g, '\\b|\\b') + "\\b", "gm");
     return text.replace(reg, "<span class='" + className + "'>$&</span>");
   }
   
-  function highlightLines(text)
+  // add line numbers and provide auto line wrapping (by div)
+  function numberLines(text)
   {
     text = normalizeText(text);
     var res = [], even = true, lines = text.split("\n");
@@ -60,9 +67,10 @@ jQuery.fn.highlight = (function(){
     return res.join("");
   }
   
-  // highlight fn.
+  // main highlight function
   function highlight(text)
   {
+    // highlight tokens by regExp
     $.each(codes, function(){
       var className = this.name;
       text = text.replace(this.reg, function(token){
@@ -70,18 +78,25 @@ jQuery.fn.highlight = (function(){
       });
     });
     
+    // height kaywords and special words
     text = highlightWords(text, keywords, "keyword");
     text = highlightWords(text, specials, "special");
     
-    text = highlightLines(text);
+    // and finaly add line numbers
+    text = numberLines(text);
+    
     return text;
   };
   
-  return function(){
+  // --- Public part -----------------------------------------------------------
+  
+  return function()
+  {
     this.each(function(){
       var e = $(this); 
       e.html(highlight(e.html()));
     });
+    
     return this;
   };
   

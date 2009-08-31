@@ -13,6 +13,23 @@ jQuery.fn.highlight = (function(){
     {name: "comment",   reg: /\/\/.*$/gm}
   ];
   
+  function normalizeText(text)
+  {
+    // tabs
+    text = text.replace(/\t/g, "    ");
+    
+    // fix spaces
+    text = text.replace(/ {2,}/g, function(space){
+      var res = [];
+      for(var i = 0; i < space.length; i++){
+        res.push("&nbsp;");
+      }
+      return res.join("");
+    });
+    
+    return text;
+  }
+  
   // highlight multiline text (each line individually)
   function highlightText(text, className)
   {
@@ -29,6 +46,20 @@ jQuery.fn.highlight = (function(){
     return text.replace(reg, "<span class='" + className + "'>$&</span>");
   }
   
+  function highlightLines(text)
+  {
+    text = normalizeText(text);
+    var res = [], even = true, lines = text.split("\n");
+    
+    $.each(lines, function(line){
+      var text = this.length ? this : "&nbsp;";
+      res.push("<div class='line " + ( even ? "even" : "odd" ) + "'><var>" + line + ":</var>" + text + "</div>");
+      even = !even;
+    });
+    
+    return res.join("");
+  }
+  
   // highlight fn.
   return function()
   {
@@ -43,6 +74,8 @@ jQuery.fn.highlight = (function(){
     
     html = highlightWords(html, keywords, "keyword");
     html = highlightWords(html, specials, "special");
+    
+    html = highlightLines(html);
     
     $(this).html(html);
   };

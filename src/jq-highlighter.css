@@ -7,6 +7,28 @@ pre{
 	font-size: 8.4pt;
 }
 
+pre div.line{
+  position: relative;
+  padding-left: 40px;
+  margin-bottom: 1px; 
+  white-space: normal;
+}
+
+pre div.line var{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 25px;
+  text-align: right;
+  font-style: normal;
+  color: #AEAEAE;
+}
+
+pre div.line.even{
+}
+pre div.line.odd{
+}
+
 pre span.keyword{
 	color: #FBDE2D;
 }
